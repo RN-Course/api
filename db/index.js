@@ -1,20 +1,18 @@
-const dbFactory = require("./db-process");
+const database = require("./db-process");
 const mongoose = require("mongoose");
 const { DB_UIR } = require("../config");
 
-let connection = await mongoose.connect(DB_UIR);
+const options = { useUnifiedTopology: true, useNewUrlParser: true };
 
-const execDbFactory = dbFactory({
-  connection
-});
+mongoose
+  .connect(DB_UIR, options)
+  .then(() => {
+    console.log("database connected");
+  })
+  .catch(err => {
+    console.error(err);
+  });
 
-// const {
-//   update,
-//   deleteMany,
-//   deleteOne,
-//   insert,
-//   findOne,
-//   findMany
-// } = execDbFactory;
+const execDbFactory = database();
 
 module.exports = execDbFactory;

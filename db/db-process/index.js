@@ -1,15 +1,8 @@
-import { Error } from "mongoose";
+// import { Error } from "mongoose";
 
-module.export = function dbFactory({ connection }) {
-  //   if (!connection) throw new Error("cannot connect to the database!!");
-
-  connection.catch(err => {
-    throw new Error(
-      `cannot connect to the database!! due to this error: ${err}`
-    );
-  });
+module.exports = function() {
   function insert(data, schema) {
-    console.log(data);
+    new schema(data).save();
     //     ...
   }
   function update(id, data, Schema) {

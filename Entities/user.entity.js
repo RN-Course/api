@@ -1,5 +1,5 @@
-module.export = /*function buildUserFactory*/ function() {
-  return /*function userFactory*/ async function({
+module.exports = function() {
+  return function({
     Id,
     Name,
     Email,
@@ -8,10 +8,11 @@ module.export = /*function buildUserFactory*/ function() {
     Password,
     Status
   } = {}) {
-    if (!Status)
-      throw new Error(
-        "This account has been deleted, Reactivate your account!!"
-      );
+    // if (!Status)
+    //   throw new Error(
+    //     "This account has been deleted, Reactivate your account!!"
+    //   );
+    // console.log(Name);
     if (!Name) throw new Error("User name is required!");
     if (!Email) throw new Error("Email is required!");
     if (!Phone) throw new Error("Phone is required!");
