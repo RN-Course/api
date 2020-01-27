@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function({ hash }) {
   return function({
     Id,
     Name,
@@ -8,11 +8,6 @@ module.exports = function() {
     Password,
     Status
   } = {}) {
-    // if (!Status)
-    //   throw new Error(
-    //     "This account has been deleted, Reactivate your account!!"
-    //   );
-    // console.log(Name);
     if (!Name) throw new Error("User name is required!");
     if (!Email) throw new Error("Email is required!");
     if (!Phone) throw new Error("Phone is required!");
@@ -26,7 +21,7 @@ module.exports = function() {
       getEmail: () => Email,
       getPhone: () => Phone,
       getProfileImage: () => ProfileImage,
-      getPassword: () => Password,
+      getPassword: () => hash(Password),
       getStatus: () => Status,
       deleteAccount: () => (Status = false)
     });

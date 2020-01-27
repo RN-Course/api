@@ -1,4 +1,4 @@
-const database = require("./db-process");
+const database = require("./database-functions");
 const mongoose = require("mongoose");
 const { DB_UIR } = require("../config");
 

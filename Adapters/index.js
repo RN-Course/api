@@ -1,17 +1,20 @@
-module.exports = function expressAdapter(req, res) {
-  const httpRequest = {
-    body: req.body,
-    params: req.params,
-    query: req.query
-  };
-  const httpResponse = {
-    send: chunk => res.send(chunk),
-    json: chunk => res.json(chunk),
-    sendStatus: status => res.sendStatus(status)
-  };
+module.exports = function expressAdapter(controller) {
+  return async function(req, res) {
+    console.log(
+      `the request has been sent from ${req.ip} and the path is ${req.path}`
+    );
+    const httpRequest = {
+      body: req.body,
+      params: req.params,
+      query: req.query,
+      path: req.path
+    };
 
-  return Object.freeze({
-    httpRequest,
-    httpResponse
-  });
+    const adapted = Object.freeze({
+      httpRequest
+    });
+
+    let response = await controller(adapted);
+    res.json(response);
+  };
 };
