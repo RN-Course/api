@@ -1,6 +1,6 @@
 // import { Error } from "mongoose";
 
-module.exports = function() {
+module.exports = function () {
   async function insert(data, schema) {
     let process = await new schema(data).save();
     //     ...
@@ -16,6 +16,13 @@ module.exports = function() {
   function deleteMany([id], Schema) {
     //     ...
   }
+  function findOneByEmail(Email, Schema, populate) {
+    let process = Schema.findOne({ Email })
+      .populate(populate)
+      .exec();
+    return process;
+  }
+
   function findOne(id, Schema, populate) {
     let process = Schema.findById({ _id: id })
       .populate(populate)
@@ -42,6 +49,7 @@ module.exports = function() {
     deleteOne,
     insert,
     findOne,
-    findAll
+    findAll,
+    findOneByEmail
   });
 };
