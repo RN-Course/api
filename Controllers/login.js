@@ -1,24 +1,29 @@
-const { loginUser } = require("../Use-cases");
+/** @format */
+
+const { loginUser } = require("../Use-cases")
 module.exports = function addUserFactory() {
-  return async function loginController({
-    Email,
-    Password
-  }) {
-    try {
-      const user = await loginUser({ Email, Password });
-      if (user.Password == Password) {
-
-        return user
-      } else {
-        return {
-          status: 403,
-          msg: "passwords don't matches"
-        };
+  return function loginController({ Email, Password }) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        // console.log(Email)
+        loginUser(Email)
+          .then((res) => {
+            // console.log(res)
+            if (res.Password === Password) {
+              resolve(res)
+            } else {
+              reject({
+                status: 200,
+                msg: "wrong password, try again!"
+              })
+            }
+          })
+          .catch(() => {
+            reject({ status: 404, msg: "no user with this email!" })
+          })
+      } catch (err) {
+        reject({ error: "there is an error. check your request!" })
       }
-    } catch (err) {
-      // console.log(err)
-      return { err: "there is an error. check your request" }
-
-    }
-  };
-};
+    })
+  }
+}

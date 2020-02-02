@@ -1,18 +1,20 @@
-// const { user } = require("../Entities");
+/** @format */
 
-module.exports = function (schema, database) {
-  return async function loginUserFactory({ Email }) {
+module.exports = function(schema, database) {
+  return function loginUserFactory(Email) {
+    return new Promise(async (resolve, reject) => {
+      // console.log(Email)
+      try {
+        let user = await database.findOneByEmail(Email, schema, "")
 
-    try {
-
-      let user = database.findOneByEmail(Email, schema, "")
-      if (user) {
-        return user;
-      } else {
-        return null
+        if (user) {
+          resolve(user)
+        } else {
+          reject(null)
+        }
+      } catch (err) {
+        reject(err)
       }
-    } catch (err) {
-      return err;
-    }
-  };
-};
+    })
+  }
+}

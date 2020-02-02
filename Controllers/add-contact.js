@@ -1,15 +1,17 @@
-const { addContact } = require("../Use-cases");
+/** @format */
+
+const { addContact } = require("../Use-cases")
 module.exports = function addContactFactory() {
   return async function addContactController({ httpRequest }) {
     try {
-      const createContact = await addContact(httpRequest.body);
+      const createContact = await addContact(httpRequest.body)
       if (createContact) {
-        return { status: 200, msg: "contact created" };
+        return { status: 200, msg: "contact created" }
       } else {
-        return "cannot create contact!";
+        return "cannot create contact!"
       }
     } catch (err) {
-      return { status: 500, msg: "there is an error. check your request" };
+      return { status: 500, msg: "there is an error. check your request" }
     }
-  };
-};
+  }
+}

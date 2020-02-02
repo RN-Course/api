@@ -1,3 +1,6 @@
 {
-        "editor.fontFamily": "'Sans Mono', 'monospace', monospace, 'Sans Fallback'"
+        "editor.fontFamily": "'Sans Mono', 'monospace', monospace, 'Sans Fallback'",
+        "prettier.useEditorConfig": false,
+        "prettier.semi": false,
+        "prettier.printWidth": 400
 }
